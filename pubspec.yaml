@@ -4,12 +4,18 @@ version: 1.0.0
 # repository: https://github.com/my_org/my_repo
 
 environment:
-  sdk: ^3.0.7
+  sdk: ^2.17.0
 
 # Add regular dependencies here.
 dependencies:
-  # path: ^1.8.0
+  flutter:
+    sdk: flutter
 
 dev_dependencies:
   lints: ^2.0.0
   test: ^1.21.0
+
+# Topics
+topics:
+  - layout
+  - util
