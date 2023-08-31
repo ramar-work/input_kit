@@ -21,6 +21,10 @@ abstract class InputKitCustomDropdown<T> extends StatefulWidget {
 
 	final double width = 100.0;
 
+	final double outerPadding = 16.0;
+
+	final double innerPadding = 16.0;
+
 	final Color fillColor = Color( 0xffffffff );
 
 	final InputKitValue<T> value = InputKitValue<T>();
@@ -131,7 +135,7 @@ class _InputKitCustomDropdownState extends State<InputKitCustomDropdown> {
 		}
 
 		return Padding(
-			padding: const EdgeInsets.all( 50 ),
+			padding: EdgeInsets.all( widget.outerPadding ),
 			child: GestureDetector(
 				onTapDown: _handleTapDown,
 				onSecondaryTapDown: _handleSecondaryTapDown,
@@ -146,7 +150,7 @@ class _InputKitCustomDropdownState extends State<InputKitCustomDropdown> {
 						child: InkWell( 
 							//splashColor: Colors.blue.withAlpha( 30 ),
 							child: Padding(
-								padding: EdgeInsets.all( 16.0 ),
+								padding: EdgeInsets.all( widget.innerPadding ),
 								child: Container(
 									width: widget.width,
 									child: Row(
