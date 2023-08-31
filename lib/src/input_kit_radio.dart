@@ -1,6 +1,30 @@
 import 'package:flutter/material.dart';
 import 'input_kit_value.dart';
 
+/*
+x final required T value;
+x final required T? groupValue;
+x final required ValueChanged<T?>? onChanged;
+
+*final bool adaptable = false;
+final bool toggleable = false;
+final bool autofocus = false;
+final bool useCupertinoCheckmarkStyle = false
+final Color? activeColor;
+final MaterialStateProperty<Color?>? fillColor;
+final Color? focusColor;
+final Color? hoverColor;
+final MaterialStateProperty<Color?>? overlayColor;
+final double? splashRadius;
+
+final MaterialTapTargetSize? materialTapTargetSize;
+final VisualDensity? visualDensity;
+final MouseCursor? mouseCursor;
+final FocusNode? focusNode;
+*/
+
+
+
 /// ...
 enum InputKitOrientation {
 	row,

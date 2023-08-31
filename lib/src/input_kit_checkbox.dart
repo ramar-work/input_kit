@@ -1,6 +1,31 @@
 import 'package:flutter/material.dart';
 import 'input_kit_value.dart';
 
+/*
+x final bool autofocus = false = null;
+x final required bool? value = null;
+x final required ValueChanged<bool?>? onChanged = null;
+
+final bool adaptive = false;
+final bool tristate = false;
+final bool isError = false;
+final String? semanticLabel = null;
+final Color? activeColor = null;
+final MaterialStateProperty<Color?>? fillColor = null;
+final Color? checkColor = null;
+final Color? focusColor = null;
+final Color? hoverColor = null;
+final MaterialStateProperty<Color?>? overlayColor = null;
+final double? splashRadius = null;
+
+final MaterialTapTargetSize? materialTapTargetSize = null;
+final VisualDensity? visualDensity = null;
+final MouseCursor? mouseCursor = null;
+final FocusNode? focusNode = null;
+final OutlinedBorder? shape = null;
+final BorderSide? side = null;
+*/
+
 abstract class InputKitCheckbox extends StatefulWidget {
 
 	/// ...

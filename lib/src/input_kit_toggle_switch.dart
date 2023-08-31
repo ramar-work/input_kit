@@ -1,6 +1,38 @@
 import 'package:flutter/material.dart';
 import 'input_kit_value.dart';
 
+/*
+x final required bool value = null;
+x final required ValueChanged<bool>? onChanged = null;
+x final ValueChanged<bool>? onFocusChange = null;
+
+final bool autofocus = false;
+final bool? applyCupertinoTheme
+final Color? activeColor = null;
+final Color? activeTrackColor = null;
+final Color? inactiveThumbColor = null;
+final Color? focusColor = null;
+final Color? hoverColor = null;
+final Color? inactiveTrackColor = null;
+final MaterialStateProperty<Color?>? thumbColor = null;
+final MaterialStateProperty<Color?>? trackColor = null;
+final MaterialStateProperty<Color?>? trackOutlineColor = null;
+final MaterialStateProperty<double?>? trackOutlineWidth = null;
+final MaterialStateProperty<Icon?>? thumbIcon = null;
+final double? splashRadius = null;
+
+final ImageProvider<Object>? activeThumbImage = null;
+final ImageErrorListener? onActiveThumbImageError = null;
+final ImageProvider<Object>? inactiveThumbImage = null;
+final ImageErrorListener? onInactiveThumbImageError = null;
+final MaterialTapTargetSize? materialTapTargetSize = null;
+final DragStartBehavior dragStartBehavior = DragStartBehavior.start = null;
+final MouseCursor? mouseCursor = null;
+final MaterialStateProperty<Color?>? overlayColor = null;
+final FocusNode? focusNode = null;
+*/
+
+
 
 /// Handle the creation and update of toggle switches 
 abstract class InputKitToggleSwitch extends StatefulWidget {

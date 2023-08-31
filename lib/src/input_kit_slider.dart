@@ -2,6 +2,35 @@
 import 'package:flutter/material.dart';
 import 'input_kit_value.dart';
 
+
+/*
+x final required double value;
+x final required ValueChanged<double>? onChanged;
+x final ValueChanged<double>? onChangeStart;
+x final ValueChanged<double>? onChangeEnd;
+
+
+final bool autofocus = false;
+final double min = 0.0;
+final double? secondaryTrackValue;
+final double max = 1.0;
+final int? divisions;
+final String? label;
+final Color? activeColor;
+final Color? inactiveColor;
+final Color? secondaryActiveColor;
+final Color? thumbColor;
+final MaterialStateProperty<Color?>? overlayColor;
+
+
+final MouseCursor? mouseCursor;
+final SemanticFormatterCallback? semanticFormatterCallback;
+final FocusNode? focusNode;
+final SliderInteraction? allowedInteraction
+*/
+
+
+
 /// Handle the creation and update of an input slider.
 abstract class InputKitSlider extends StatefulWidget {
 

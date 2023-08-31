@@ -4,6 +4,21 @@ import 'package:input_kit/input_kit.dart';
 
 
 
+class IKTestCustomDropdown extends InputKitCustomDropdown<String?> {
+	final List<InputKitCustomDropdownValue<String?>> items = [
+		InputKitCustomDropdownValue<String?>( "Choice A", "choice A" ),
+		InputKitCustomDropdownValue<String?>( "Choice B", "choice B" ),
+		InputKitCustomDropdownValue<String?>( "Choice C", "choice C" ),
+		InputKitCustomDropdownValue<String?>( "Choice D", "choice D" ),
+	];
+
+	final InputKitCustomDropdownValue<String?> initialSelection = 
+		InputKitCustomDropdownValue<String?>( "Select One", null );
+
+	IKTestCustomDropdown() : super();
+}
+
+
 ///
 class IKTestSearch extends InputKitTextField {
 	//Color? fillColor = Color( 0xff0000ff );
@@ -87,7 +102,7 @@ class InputKitTest extends InputKit {
 	Map<String,Function ()> constructors = {
 		"textbox": () => IKTestSearch(),
 		"password": () => IKTestPassword(),
-		"options": () => IKTestDropdown(),
+		"options": () => IKTestCustomDropdown(),
 		"radio": () => IKTestRadio(),
 		"switch": () => IKTestToggleSwitch(),
 		"checkbox": () => IKTestCheckbox(),
