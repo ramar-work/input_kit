@@ -1,5 +1,4 @@
 // A base type that can be used to safely handle values of different types
-
 class InputKitValue<T> {
 	T? _value;
 
@@ -9,5 +8,3 @@ class InputKitValue<T> {
 
 	InputKitValue( [ this._value ] );
 }
-
-

@@ -22,8 +22,9 @@ class IKTestCustomDropdown extends InputKitCustomDropdown<String?> {
 ///
 class IKTestSearch extends InputKitTextField {
 	//Color? fillColor = Color( 0xff0000ff );
+	//final InputKitValue<String> value = InputKitValue<String>( "" );
 	String? hintText = "Test Search"; 
-	IKTestSearch() : super();
+	IKTestSearch() : super(); 
 }
 
 
@@ -136,20 +137,23 @@ class _InputKitTestRouteState extends State<InputKitTestRoute> {
 	void initState() {
 		super.initState();
 		// Any previous values would go in here
-		form = InputKitTest();
+		form = InputKitTest( { "textbox": "another value" } );
 	}
 
 	@override
 	Widget build( BuildContext ctx ) {
+
+		//form.set( "textbox", "a value" );
 		return Flex(
 			direction: Axis.vertical,
 			children: [ 	
 				const Text( "Search (textbox)", textAlign: TextAlign.left ),
 				form.widget( "textbox" ),
 
+/*
 				Container( height: 20.0 ),
 				const Text( "Switch (switch)", textAlign: TextAlign.left ), 
-				form.widget( "switch" ),	
+				form.widget( "switch" ) ?? Container(),	
 
 				Container( height: 20.0 ),
 				const Text( "Checkbox (checkbox)", textAlign: TextAlign.left ), 
@@ -173,6 +177,7 @@ class _InputKitTestRouteState extends State<InputKitTestRoute> {
 					onPressed: () => print( form!.toJson() )
 				),
 				Container( height: 20.0 ),
+*/
 			]
 		);
 	}

@@ -1,5 +1,5 @@
 // A subclass
-class _Struct {
+class MappableStruct {
 	//Map<String,dynamic> _this;
 
 	dynamic type;
@@ -8,8 +8,13 @@ class _Struct {
 
 	dynamic get = (dynamic v) => v;
 
-	dynamic set = (dynamic t, dynamic v) {
+	void set = (String k, dynamic v) { 
+		print( "Setting $k to $v at MappableStruct" );
+		return;
+	};
+
 	/*
+	dynamic set = (dynamic t, dynamic v) {
 		if ( v.type == bool ) {
 			print( "what I'm looking at is a bool." );
 		}
@@ -22,15 +27,15 @@ class _Struct {
 		else if ( v.type == double ) {
 			print( "what I'm looking at is a double." );
 		}
-	*/
 	};
+	*/
 	
 	@override
 	String toString() {
-		return "{ type: $type, value: $value, get: $get, set: $set }";
+		return "{ type: $type, value: $value, get: $get, set: -}";
 	}
 
-	_Struct(
+	MappableStruct(
 		//this._this,
 		this.type, 
 		/*{
@@ -48,11 +53,14 @@ class _Struct {
 // Wrap a map with some extra functionality
 class Mappable {
 
-	// How should booleans render themselves with JSON?
-	bool hideempty = false; 
-
 	// ...
 	dynamic defaultGetter;
+
+	// ...
+	void defaultSetter( String k, dynamic v ) {
+		print( "Setting $k to $v at Mappable" );
+		return;	
+	}
 
 	// Define a list of strings to use as keys
 	Map<String,dynamic> defs = {};
@@ -68,8 +76,10 @@ class Mappable {
 
 	// Set a key if it's in keys
 	void set( String k, dynamic v ) {
-		if ( map[ k ] ) {
-			_Struct t = map[ k ];
+		/*
+		print( "Setting $k to $v at Mappable with individual set" );
+		if ( map[ k ] != null ) {
+			MappableStruct t = map[ k ];
 			if ( t.type == bool && v is bool ) {
 				t.value = v;
 			}
@@ -86,13 +96,15 @@ class Mappable {
 				// WHat if it's a Widget?  Are formtypes all widgets?
 			}
 		}
+		*/
+		return;
 	}
 
 	// toJson
 	Map<String,dynamic> toJson() {
 		Map<String, dynamic> res = {};
 		for ( final k in map.keys ) {
-			_Struct t = map[ k ];
+			MappableStruct t = map[ k ];
 			dynamic v = t.get( t.value );
 			if ( t.type == String && v is String )
 				res.addAll( { k: v } );
@@ -114,7 +126,7 @@ class Mappable {
 	Map<String,dynamic> toMap() {
 		Map<String, dynamic> res = {};
 		for ( final k in map.keys ) {
-			_Struct t = map[ k ];
+			MappableStruct t = map[ k ];
 			dynamic v = t.get( t.value );
 			if ( t.type == bool && v is bool )
 				res.addAll( { k: ( v ) ? "on" : "off" } );
@@ -129,7 +141,7 @@ class Mappable {
 
 	dynamic get( String key ) {
 		if ( map[ key ] != null ) {
-			_Struct t = map[ key ];
+			MappableStruct t = map[ key ];
 			return t.get( t.value );
 		}
 		return null; 
@@ -146,7 +158,7 @@ class Mappable {
 			var t = defs[ key ];
 			
 			// Create an instance of the struct on the other end
-			_Struct struct = _Struct( t ); //(v) => v, (t,v) => t[v] ); 
+			MappableStruct struct = MappableStruct( t ); //(v) => v, (t,v) => t[v] ); 
 
 			// If the user gave a non blank map, pull the values from it and set
 			if ( values[ key ] != null ) {
@@ -161,6 +173,15 @@ class Mappable {
 			}
 			else if ( defaultGetter != null ) {
 				struct.get = defaultGetter;
+			}	
+
+			if ( setters[ key ] != null ) {
+print( 'using a custom setter for $key' );
+				struct.set = setters[ key ];
+			}
+			else {
+print( 'using a default setter for $key' );
+				struct.set = (v) => print(v);
 			}	
 
 			// Define a getter setter if specified at instantiation

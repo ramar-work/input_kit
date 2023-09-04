@@ -77,10 +77,18 @@ final SmartQuotesType? smartQuotesType;
 
 /// Handle the creation and input of text fields
 abstract class InputKitTextField extends StatefulWidget with InputKitFieldStyling {
-	InputKitTextField({ super.key });
+	InputKitTextField({ super.key, this.initial = null }) {
+		if ( initial != null ) {
+			print( "Setting this to a value." );
+			value.value = initial;
+		}
+	}
 
-	/// *TextEditingController 
-	final TextEditingController _controller = TextEditingController();
+	final initial;
+
+	void update() {
+		// Call set state after an update from a setter...	
+	}
 
 	/// *Grab a value from the controller
 	final InputKitValue<String> value = InputKitValue<String>( "" );
@@ -117,15 +125,20 @@ abstract class InputKitTextField extends StatefulWidget with InputKitFieldStylin
 
 /// 
 class _InputKitTextFieldState extends State<InputKitTextField> {
+	/// *TextEditingController 
+	TextEditingController? _controller;
+
 	@override
 	Widget build( BuildContext ctx ) {
 	
 		//InputDecoration decorator = widget.decoration();
 
+		//widget._controller.value.text = "Something";
+		_controller = TextEditingController( text: widget.value.value ); 
 
 		return TextField(
-			controller: widget._controller,
-			onChanged: (String text) => widget.value.value = widget._controller.value.text,
+			controller: _controller,
+			onChanged: (String text) => widget.value.value = _controller?.value.text ?? "",
 			//decoration: widget.decoration()
 			decoration: InputDecoration(
 				border: widget.border,
