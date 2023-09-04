@@ -91,7 +91,7 @@ class _InputKitDropdownState extends State<InputKitDropdown> {
 		//widget._list.add( widget.constructor( widget.initialSelection ) );
 
 		// Since this uses this weird InputDecorationTheme, try this?
-		var i = new InputDecorationTheme();
+		//var i = new InputDecorationTheme();
 		//InputDecorationTheme theme = i.copyWith( widget.decoration() );
 
 		for ( final InputKitDropdownValue i in widget.items ) {

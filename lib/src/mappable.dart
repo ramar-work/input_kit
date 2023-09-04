@@ -9,20 +9,20 @@ class _Struct {
 	dynamic get = (dynamic v) => v;
 
 	dynamic set = (dynamic t, dynamic v) {
-/*
+	/*
 		if ( v.type == bool ) {
-print( "what I'm looking at is a bool." );
+			print( "what I'm looking at is a bool." );
 		}
 		else if ( v.type == String ) {
-print( "what I'm looking at is a string." );
+			print( "what I'm looking at is a string." );
 		}
 		else if ( v.type == int ) {
-print( "what I'm looking at is a int." );
+			print( "what I'm looking at is a int." );
 		}
 		else if ( v.type == double ) {
-print( "what I'm looking at is a double." );
+			print( "what I'm looking at is a double." );
 		}
-*/
+	*/
 	};
 	
 	@override
@@ -97,7 +97,7 @@ class Mappable {
 			if ( t.type == String && v is String )
 				res.addAll( { k: v } );
 			else if ( t.type == bool && v is bool )
-				res.addAll( { k: ( v ) ? "on" : "off" } );	
+				res.addAll( { k: ( v ) ? "on" : "off" } );
 			else if ( t.type == int && v is int )
 				res.addAll( { k: v } );
 			else if ( t.type == double && v is double )
@@ -106,9 +106,25 @@ class Mappable {
 				// If the value is null, you can either add null or just not add
 				res.addAll( { k: v } );
 			}
-		}	
+		}
 		return res;
 	}
+
+	
+	Map<String,dynamic> toMap() {
+		Map<String, dynamic> res = {};
+		for ( final k in map.keys ) {
+			_Struct t = map[ k ];
+			dynamic v = t.get( t.value );
+			if ( t.type == bool && v is bool )
+				res.addAll( { k: ( v ) ? "on" : "off" } );
+			else {
+				res.addAll( { k: v } );
+			}
+		}
+		return res;
+	}
+
 
 
 	dynamic get( String key ) {
@@ -134,7 +150,6 @@ class Mappable {
 
 			// If the user gave a non blank map, pull the values from it and set
 			if ( values[ key ] != null ) {
-				print( "Key ${key} exists in values, so preset it" );
 				struct.value = values[ key ];	
 			}
 
@@ -142,11 +157,9 @@ class Mappable {
 			
 			// Define a custom getter if specified at instantiation
 			if ( getters[ key ] != null ) {
-			print( "setting ${key} w/ corresponding getters property" );
 				struct.get = getters[ key ];
 			}
 			else if ( defaultGetter != null ) {
-			print( "setting ${key} w/ defaultGetter " );
 				struct.get = defaultGetter;
 			}	
 

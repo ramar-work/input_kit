@@ -126,8 +126,7 @@ class _InputKitTextFieldState extends State<InputKitTextField> {
 		return TextField(
 			controller: widget._controller,
 			onChanged: (String text) => widget.value.value = widget._controller.value.text,
-			decoration: widget.decoration()
-/*
+			//decoration: widget.decoration()
 			decoration: InputDecoration(
 				border: widget.border,
 				labelText: widget.labelText,
@@ -137,7 +136,6 @@ class _InputKitTextFieldState extends State<InputKitTextField> {
 				filled: ( widget.fillColor != null ) ? true : false ,
 				hintText: widget.hintText 
 			)
-*/
 		);
 	}
 }
