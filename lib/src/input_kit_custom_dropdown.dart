@@ -1,4 +1,9 @@
+/// input_kit_custom_dropdown.dart
+///
+/// Creates a custom dropdown that is a bit more flexible
+/// than what we've gotten so far with DropdownMenu.
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'input_kit_value.dart';
 import 'input_kit_decoration.dart';
 
@@ -21,13 +26,23 @@ abstract class InputKitCustomDropdown<T> extends StatefulWidget {
 
 	final double width = 100.0;
 
-	final double outerPadding = 16.0;
+	final double outerPadding = 0.0;
 
-	final double innerPadding = 16.0;
+	final double innerPadding = 0.0;
 
 	final Color fillColor = Color( 0xffffffff );
 
 	final InputKitValue<T> value = InputKitValue<T>();
+
+	void setValue( T v ) {
+		print( "Trying to preset a value at InputKitCustomDropdown..." );
+		if ( v is T ) {
+			value.value = v;
+		}
+		else {
+			print( "Value at InputKitDropdown is not of type ${T}" );
+		}
+	}
 
 	@override
 	State<InputKitCustomDropdown> createState() => _InputKitCustomDropdownState();
@@ -41,11 +56,37 @@ class _InputKitCustomDropdownState extends State<InputKitCustomDropdown> {
 
 	final MenuController _controller = MenuController();
 
+	bool _orientationChanged = false;
+
+	bool _resized = false;
+
+	Size? size;
+
 	ShortcutRegistryEntry? _shortcutsEntry;
 
-	bool _menuWasEnabled = false;
-
 	InputKitCustomDropdownValue? _selected;
+
+	GlobalKey wkey = GlobalKey();
+
+	double screenWidth = 0.0;
+
+	double screenHeight = 0.0;
+
+	// We have to be careful, because this can ONLY RUN ONCE
+	void getActualWidth( _ ) {
+		if ( !_resized ) {
+			var c = wkey.currentContext;
+			if ( c != null ) {
+				setState( () {
+					double width = c.size?.width ??	0;
+					if ( width > 0 ) {
+						size = Size.fromWidth( width - 15 ); 
+					}
+				} );
+			}
+			_resized = true;
+		}
+	}
 
 	@override
 	void initState() {
@@ -108,6 +149,8 @@ class _InputKitCustomDropdownState extends State<InputKitCustomDropdown> {
 		*/
 	}
 
+
+
 	void _activate( InputKitCustomDropdownValue selection ) {
     setState( () {
 			_selected = selection;
@@ -116,53 +159,68 @@ class _InputKitCustomDropdownState extends State<InputKitCustomDropdown> {
   }
 
 
+
 	@override
 	Widget build( BuildContext ctx ) {
-
+		// Define a list of items that will be used to populate options
 		List<MenuItemButton> items = [];
+
+		// Define a callback to resize the options after call
+		SchedulerBinding.instance.addPostFrameCallback( getActualWidth );
+
+print( widget.value.value );
+
+		// If the screen width changes, this is a pretty good indicator that 
+		// we're probably going to need to update the width
+		if ( MediaQuery.of( ctx ).size.width != screenWidth ) {
+			screenWidth = MediaQuery.of( ctx ).size.width;
+			_resized = false;
+		}
 
 		for ( int i = 0; i < widget.items.length; i++ ) {
 			InputKitCustomDropdownValue v = widget.items[ i ];
+
+			// If the item is selected
+			if ( v.value == widget.value.value ) {
+				//print( "We were preselected." );
+				_selected = v;
+			}
+
 			items.add(
 				MenuItemButton(
 					onPressed: () => _activate( v ),
 					child: Container(
-						width: widget.width,
+						width: size?.width,
 						child: Text( v.name )
 					),
 				)
 			);
 		}
 
-		return Padding(
-			padding: EdgeInsets.all( widget.outerPadding ),
-			child: GestureDetector(
-				onTapDown: _handleTapDown,
-				onSecondaryTapDown: _handleSecondaryTapDown,
-				onTap: () => _controller.open(),
-				child: MenuAnchor(
-					controller: _controller,
-					anchorTapClosesMenu: true,
-					menuChildren: items,
-					child: Card(
-						color: widget.fillColor,
-						clipBehavior: Clip.hardEdge,
-						child: InkWell( 
-							//splashColor: Colors.blue.withAlpha( 30 ),
-							child: Padding(
-								padding: EdgeInsets.all( widget.innerPadding ),
-								child: Container(
-									width: widget.width,
-									child: Row(
-										children: [ 
-											Text( _selected?.name ?? "" ),
-											Expanded( child: Container() ),
-											Icon( Icons.arrow_drop_down )
-										]
-									)
-								)
-							)
-						)
+		return GestureDetector(
+			onTapDown: _handleTapDown,
+			onSecondaryTapDown: _handleSecondaryTapDown,
+			onTap: () {
+				_controller.open();
+			},
+			child: MenuAnchor(
+				key: wkey,
+				controller: _controller,
+				anchorTapClosesMenu: true,
+				menuChildren: items,
+				child: Container(
+					padding: EdgeInsets.all( 15.0 ),
+					width: double.infinity,
+					decoration: BoxDecoration(
+						border: Border.all( width: 1.0, color: const Color(0xff000000) ),
+						color: widget.fillColor, 
+					),
+					child: Row(
+						children: [ 
+							Text( _selected?.name ?? "" ),
+							Expanded( child: Container() ),
+							Icon( Icons.arrow_drop_down )
+						]
 					)
 				)
 			)

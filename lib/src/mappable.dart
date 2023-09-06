@@ -68,7 +68,7 @@ class Mappable {
 	// Define a list of (optional) getters
 	Map<String,Function (dynamic v)> getters = {};
 
-	// Define a list of (optional) setters
+	// Define a list of (optional) setters...
 	Map<String,Function (dynamic t, dynamic v)> setters = {};
 
 	// The values specified in defs will go here
@@ -116,7 +116,7 @@ class Mappable {
 				res.addAll( { k: v } );
 			else {
 				// If the value is null, you can either add null or just not add
-				res.addAll( { k: v } );
+				//res.addAll( { k: v } );
 			}
 		}
 		return res;

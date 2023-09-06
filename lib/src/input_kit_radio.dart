@@ -65,6 +65,15 @@ abstract class InputKitRadio<T> extends StatefulWidget {
 		);
 	}
 
+	void setValue( T v ) {
+		if ( v is T ) {
+			value.value = v;
+		}
+		else {
+			print( "This value is not of type ${T}" );
+		}
+	}
+
 	@override
 	State<InputKitRadio> createState() => _InputKitRadioState();
 

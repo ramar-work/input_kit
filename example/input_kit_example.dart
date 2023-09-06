@@ -12,8 +12,9 @@ class IKTestCustomDropdown extends InputKitCustomDropdown<String?> {
 		InputKitCustomDropdownValue<String?>( "Choice D", "choice D" ),
 	];
 
-	final InputKitCustomDropdownValue<String?> initialSelection = 
-		InputKitCustomDropdownValue<String?>( "Select One", null );
+	final InputKitCustomDropdownValue<String?> initialSelection =
+		InputKitCustomDropdownValue<String?>( "Select One", null )
+	;
 
 	IKTestCustomDropdown() : super();
 }
@@ -96,7 +97,7 @@ class InputKitTest extends InputKit {
 		"radio": dynamic,
 		"switch": bool,
 		"checkbox": bool,
-		"slider": bool,
+		"slider": double,
 	};
 
 	@override
@@ -137,48 +138,60 @@ class _InputKitTestRouteState extends State<InputKitTestRoute> {
 	void initState() {
 		super.initState();
 		// Any previous values would go in here
-		form = InputKitTest( { "textbox": "another value" } );
+		form = InputKitTest( { 
+			"textbox": "another value",
+			"checkbox": true,
+			"slider": 27.0,
+		} );
 	}
 
 	@override
 	Widget build( BuildContext ctx ) {
 
 		//form.set( "textbox", "a value" );
-		return Flex(
-			direction: Axis.vertical,
-			children: [ 	
-				const Text( "Search (textbox)", textAlign: TextAlign.left ),
-				form.widget( "textbox" ),
+		return Padding( 
+			padding: EdgeInsets.all( 25.0 ),
+			child: Flex(
+				direction: Axis.vertical,
+				children: [ 	
+					Expanded( child: Container() ),
 
-/*
-				Container( height: 20.0 ),
-				const Text( "Switch (switch)", textAlign: TextAlign.left ), 
-				form.widget( "switch" ) ?? Container(),	
+					const Text( "Search (textbox)", textAlign: TextAlign.left ),
+					form.widget( "textbox" ),
 
-				Container( height: 20.0 ),
-				const Text( "Checkbox (checkbox)", textAlign: TextAlign.left ), 
-				form.widget( "checkbox" ),	
+					Container( height: 20.0 ),
+					const Text( "Search (password)", textAlign: TextAlign.left ),
+					form.widget( "password" ),
 
-				Container( height: 20.0 ),
-				const Text( "Slider (slider)", textAlign: TextAlign.left ), 
-				form.widget( "slider" ),	
+					Container( height: 20.0 ),
+					const Text( "Switch (switch)", textAlign: TextAlign.left ), 
+					form.widget( "switch" ) ?? Container(),	
 
-				Container( height: 20.0 ),
-				const Text( "Radio (radio)", textAlign: TextAlign.left ), 
-				form.widget( "radio" ),	
+					Container( height: 20.0 ),
+					const Text( "Checkbox (checkbox)", textAlign: TextAlign.left ), 
+					form.widget( "checkbox" ),	
 
-				Container( height: 20.0 ),
-				Container( child: Text( "Dropdowns" ) ),
-				form.widget( "options" ), 
+					Container( height: 20.0 ),
+					const Text( "Slider (slider)", textAlign: TextAlign.left ), 
+					form.widget( "slider" ),	
 
-				Container( height: 20.0 ),
-				ElevatedButton(
-					child: const Text( "Submit" ),
-					onPressed: () => print( form!.toJson() )
-				),
-				Container( height: 20.0 ),
-*/
-			]
+					Container( height: 20.0 ),
+					const Text( "Radio (radio)", textAlign: TextAlign.left ), 
+					form.widget( "radio" ),	
+
+					Container( height: 20.0 ),
+					Container( child: Text( "Dropdowns" ) ),
+					form.widget( "options" ), 
+
+					Container( height: 20.0 ),
+					ElevatedButton(
+						child: const Text( "Submit" ),
+						onPressed: () => print( form!.toJson() )
+					),
+					Container( height: 20.0 ),
+					Expanded( child: Container() ),
+				]
+			)
 		);
 	}
 }

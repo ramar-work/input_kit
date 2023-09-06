@@ -77,18 +77,7 @@ final SmartQuotesType? smartQuotesType;
 
 /// Handle the creation and input of text fields
 abstract class InputKitTextField extends StatefulWidget with InputKitFieldStyling {
-	InputKitTextField({ super.key, this.initial = null }) {
-		if ( initial != null ) {
-			print( "Setting this to a value." );
-			value.value = initial;
-		}
-	}
-
-	final initial;
-
-	void update() {
-		// Call set state after an update from a setter...	
-	}
+	InputKitTextField({ super.key }); 
 
 	/// *Grab a value from the controller
 	final InputKitValue<String> value = InputKitValue<String>( "" );
@@ -111,11 +100,15 @@ abstract class InputKitTextField extends StatefulWidget with InputKitFieldStylin
 	/// A label to use
 	final String? labelText = null;
 
-	/// An event listener
-	//void onChanged (String text) => value.value = _controller.value.text;
-
 	/// ...
-	bool validator() => true; 
+	void setValue ( String b ) {
+		if ( b is String ) {
+			value.value = b;
+		}
+		else {
+			print( "Value at InputKitTextField is not of type String" );
+		}
+	}
 
 	@override	
 	State<InputKitTextField> createState() => _InputKitTextFieldState();

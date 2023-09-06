@@ -67,7 +67,14 @@ abstract class InputKitDropdown<T> extends StatefulWidget with InputKitFieldStyl
 
 	final MenuStyle? menuStyle = null;
 
-	void setValue( T v ) => value.value = v;
+	void setValue( T v ) {
+		if ( v is T ) {
+			value.value = v;
+		}
+		else {
+			print( "Value at InputKitDropdown is not of type ${T}" );
+		}
+	}
 
 	// Generate a constructor for the menu entries
 	DropdownMenuEntry<T> constructor( InputKitDropdownValue v ) => DropdownMenuEntry(

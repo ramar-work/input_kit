@@ -65,12 +65,15 @@ abstract class InputKitToggleSwitch extends StatefulWidget {
 	/// ....
 	final bool autofocus = false;
 
-	/// ....
-	dynamic onChanged() => 0;
+	void setValue( bool v ) {
+		if ( v is bool ) {
+			value.value = v;
+		}
+		else {
+			print( "Value at InputKitToggleSwitch is not of type bool" );
+		}
+	}
 
-	/// ....
-	dynamic onFocusChange() => 0;
-		
 	@override
 	State<InputKitToggleSwitch> createState() => _InputKitToggleSwitchState();
 }

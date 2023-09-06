@@ -4,6 +4,8 @@ import 'mappable.dart';
 
 
 /// ...
+
+/// Defining base styles from here is pretty useful
 abstract class InputKit extends Mappable {
 	// Default definitions
 	@override
@@ -25,6 +27,15 @@ abstract class InputKit extends Mappable {
 		print( "Would have set key $k to $v" );
 	}
 
+	// ?
+	BoxDecoration? boxDecoration;
+
+	// Default decoration
+	InputDecoration? inputDecoration;
+
+	// Default text styling
+	TextStyle? textStyle;
+
 	// Retrieve a widget matching this definition
 	Widget widget( String k ) {
 		if ( map[ k ] != null ) {
@@ -34,34 +45,16 @@ abstract class InputKit extends Mappable {
 	}
 
 	void set( String k, dynamic v ) {
-		print( "Setting '$k' to '$v' at input_kit with form.set()" );
+		//print( "Setting '$k' to '$v' at input_kit with form.set()" );
 		if ( map[ k ] != null ) {
-		print( "Try it." );
-			// You can do the type check here for safety...
-			MappableStruct t = map[ k ];
-
-			// This sets the value, but you'll need to update the interface too...
-			t.value.value.value = v;
-
-/*
-			if ( t.type == String && v is String ) {
-				t.value.value.value = v;
-			}
-			else if ( t.type == bool && v is bool ) {
-				t.value.value = v;
-			}
-			else if ( t.type == int && v is int ) {
-				t.value.value = v;
-			}
-			else if ( t.type == double && v is double  ) {
-				t.value.value = v;
-			}
-			else {
-				// WHat if it's a Widget?  Are formtypes all widgets?
-				print( "There are no matches for this widget." );
-			}
-*/
-		}	
+			// Since all are stateless, it is possible to call
+			// setState from whatever widget is using this to update
+			// the value after the fact
+			map[ k ].value.setValue( v );
+		}
+		else {
+			// May need to throw an exception or just simply log what happened
+		}
 	}
 
 	// NOTE: Even with constructor, you may still need some sort of "pre" setter
@@ -74,26 +67,7 @@ abstract class InputKit extends Mappable {
 
 				// If there is a value, try to set it
 				if ( values != null && values[ k ] != null ) {
-					var arg = null;
-					arg = values[ k ];
-					// The types must match, or you'll throw...
-					if ( map[ k ].type == String && arg is String ) {
-						map[ k ].value.value.value = arg;
-					}
-					else if ( map[ k ].type == bool && arg is bool ) {
-						map[ k ].value.value.value = arg;
-					}
-					else if ( map[ k ].type == int && arg is int ) {
-						map[ k ].value.value.value = arg;
-					}
-					else if ( map[ k ].type == double && arg is double  ) {
-						map[ k ].value.value.value = arg;
-					}
-					else {
-						// WHat if it's a Widget?  Are formtypes all widgets?
-						//print( "There are no matches for this widget." );
-					}
-					//map[ k ].value.value.value = arg;
+					map[ k ].value.setValue( values[ k ] );
 				}
 				
 			}

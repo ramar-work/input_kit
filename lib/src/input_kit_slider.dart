@@ -63,10 +63,14 @@ abstract class InputKitSlider extends StatefulWidget {
 	/// ...
 	final Color? secondaryActiveColor = null;
 
-	///
-	//ValueChanged<bool>? onFocusChange(bool v) => 0;
-
-	dynamic onchanged() => 0;
+	void setValue( double v ) {
+		if ( v is double ) {
+			value.value = v;
+		}
+		else {
+			print( "Value at InputKitSlider is not of type double" );
+		}
+	}
 
 	@override
 	State<InputKitSlider> createState() => _InputKitSliderState();

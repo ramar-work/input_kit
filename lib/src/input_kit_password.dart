@@ -50,6 +50,16 @@ abstract class InputKitPassword extends StatefulWidget {
 	/// ...
 	bool validator() => true; 
 
+	
+	void setValue( String v ) {
+		if ( v is String ) {
+			value.value = v;
+		}
+		else {
+			print( "Value at InputKitPassword is not of type String" );
+		}
+	}
+
 	@override	
 	State<InputKitPassword> createState() => _InputKitPasswordState();
 }

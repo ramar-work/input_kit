@@ -64,6 +64,23 @@ abstract class InputKitCheckbox extends StatefulWidget {
 	/// ...
 	final double? splashRadius = null;
 
+	/// A default setter could run here
+	void setValue ( dynamic b ) {
+		if ( b is bool )
+			value.value = b;
+		else if ( b is int ) {
+			if ( b == 0 )
+				value.value = false;
+			else if ( b == 1 )
+				value.value = true;
+			else {
+				// NOTE: Should throw an exception here...
+				print( "Value at InputKitCheckbox is not a bool or int" );
+				return;
+			}
+		}
+	}
+
 	//MaterialStateProperty<Color?>? fillColor;
 
 	//MaterialStateProperty<Color?>? overlayColor;
@@ -94,6 +111,8 @@ class _InputKitCheckboxState extends State<InputKitCheckbox> {
 
 	@override
 	Widget build( BuildContext ctx ) {
+			
+
 		return Checkbox(
 			fillColor: MaterialStateProperty.resolveWith( _color ), 
 			//overlayColor: MaterialStateProperty.resolveWith( _color ), 
