@@ -29,9 +29,6 @@ abstract class InputKitPassword extends StatefulWidget {
 	/// Maximum length of the text box
 	final int maxLines = 1;
 
-	/// Maximum length of the text box
-	final int? maxLength = 124;
-
 	/// A label to use
 	final String? labelText = null;
 
@@ -79,7 +76,6 @@ class _InputKitPasswordState extends State<InputKitPassword> {
 			obscureText: obscured,
 			obscuringCharacter: widget.obscuringCharacter,
 			onChanged: widget.onChanged,
-			maxLength: widget.maxLength,
 			decoration: InputDecoration(
 				border: widget.border,
 				labelText: widget.labelText,
