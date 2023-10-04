@@ -97,7 +97,7 @@ class _InputKitCustomDropdownState extends State<InputKitCustomDropdown> {
 			_selected = widget.initialSelection;
 		}
 		else if ( widget.items.isNotEmpty ) {
-			_selected = widget.items[ widget.initialSelection ];
+			_selected = widget.items[ widget.initialIndex ];
 		}
 	}
 
