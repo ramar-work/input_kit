@@ -24,6 +24,8 @@ abstract class InputKitCustomDropdown<T> extends StatefulWidget {
 
 	final InputKitCustomDropdownValue<T?>? initialSelection = null;
 
+	final int initialIndex = 0;
+
 	final double width = 100.0;
 
 	final double outerPadding = 0.0;
@@ -91,7 +93,12 @@ class _InputKitCustomDropdownState extends State<InputKitCustomDropdown> {
 	@override
 	void initState() {
 		super.initState();
-		_selected = widget.initialSelection;	
+		if ( widget.initialSelection != null ) {
+			_selected = widget.initialSelection;
+		}
+		else if ( widget.items.isNotEmpty ) {
+			_selected = widget.items[ widget.initialSelection ];
+		}
 	}
 
 	@override
